@@ -8,7 +8,7 @@ const navItems = [
   { href: "/", label: "首頁", icon: Home },
   { href: "/itinerary", label: "行程", icon: CalendarDays },
   { href: "/logistics", label: "交通住宿", icon: Plane },
-  { href: "/info", label: "須知", icon: Info }
+  { href: "/info", label: "注意事項", icon: Info }
 ];
 
 export function BottomNavigation() {

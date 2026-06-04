@@ -88,7 +88,7 @@ export default function LogisticsPage() {
               全程安排專屬遊覽車接駁
             </h2>
             <p className="mt-3 text-sm leading-6 text-white/76">
-              Day 2 至 Day 4 由飯店出發的跨區行程皆以專屬遊覽車移動，集合與上車地點以飯店為主。
+              自 Day 1 抵達臺灣桃園國際機場起，四天行程全程皆安排專屬遊覽車接駁，無需擔心點到點的交通轉換。每日詳細上車時間與地點請參考行程頁面。
             </p>
           </div>
         </div>

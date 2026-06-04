@@ -31,7 +31,7 @@ export default function HomePage() {
               台灣四天三夜旅遊
             </h1>
             <p className="mt-4 max-w-sm text-sm leading-6 text-white/82 sm:text-base">
-              從台北、桃園到新竹台中，整理行程、交通、住宿與出發前須知。
+              從台北、桃園到新竹台中，整理行程、交通、住宿與行前注意事項。
             </p>
           </div>
 
