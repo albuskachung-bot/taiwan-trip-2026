@@ -1,15 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { BadgeCheck, Bed, Bus, Car, Clock, MapPin, Plane } from "lucide-react";
+import { BadgeCheck, Bed, Clock, MapPin, Plane, Users } from "lucide-react";
+
+type TransportType = "bus" | "walk" | "none";
 
 export type TimelineItem = {
   time?: string;
   title: string;
   detail?: string;
-  type: "flight" | "departure" | "spot" | "meal" | "hotel";
-  noCar?: boolean;
-  coach?: boolean;
+  location?: string;
+  mapsUrl: string;
+  type: "meeting" | "flight" | "departure" | "spot" | "meal" | "hotel";
+  transport?: TransportType;
 };
 
 export type TripDay = {
@@ -20,11 +23,30 @@ export type TripDay = {
 };
 
 function getIcon(type: TimelineItem["type"]) {
+  if (type === "meeting") return Users;
   if (type === "flight") return Plane;
   if (type === "departure") return Clock;
   if (type === "hotel") return Bed;
   if (type === "meal") return BadgeCheck;
   return MapPin;
+}
+
+function getTransportBadge(transport: TransportType = "none") {
+  if (transport === "bus") {
+    return {
+      label: "🚌 專屬遊覽車",
+      className: "border-leaf/20 bg-leaf/10 text-leaf"
+    };
+  }
+
+  if (transport === "walk") {
+    return {
+      label: "🚶 免用車",
+      className: "border-orange-200 bg-orange-50 text-orange-700"
+    };
+  }
+
+  return null;
 }
 
 export function DayTabsTimeline({ days }: { days: TripDay[] }) {
@@ -63,6 +85,7 @@ export function DayTabsTimeline({ days }: { days: TripDay[] }) {
       <ol className="relative ml-3 space-y-4 border-l-2 border-dashed border-slate-200 pl-6">
         {day.items.map((item, index) => {
           const Icon = getIcon(item.type);
+          const transportBadge = getTransportBadge(item.transport);
 
           return (
             <li className="relative" key={`${item.title}-${index}`}>
@@ -77,25 +100,42 @@ export function DayTabsTimeline({ days }: { days: TripDay[] }) {
                         {item.time}
                       </p>
                     ) : null}
-                    <h3 className="text-base font-black text-ink">{item.title}</h3>
+                    <h3 className="text-base font-black text-ink">
+                      <a
+                        className="transition hover:text-leaf hover:underline"
+                        href={item.mapsUrl}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        {item.title}
+                      </a>
+                    </h3>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {item.coach ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-sea px-3 py-1 text-xs font-black text-white shadow-sm">
-                        <Bus aria-hidden="true" className="h-3.5 w-3.5" />
-                        遊覽車
-                      </span>
-                    ) : null}
-                    {item.noCar ? (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-coral px-3 py-1 text-xs font-black text-white shadow-sm">
-                        <Car aria-hidden="true" className="h-3.5 w-3.5" />
-                        不用車
+                    {transportBadge ? (
+                      <span
+                        className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-black shadow-sm ${transportBadge.className}`}
+                      >
+                        {transportBadge.label}
                       </span>
                     ) : null}
                   </div>
                 </div>
                 {item.detail ? (
                   <p className="mt-2 text-sm leading-6 text-slate-600">{item.detail}</p>
+                ) : null}
+                {item.location ? (
+                  <p className="mt-2 flex items-start gap-2 text-sm leading-6 text-slate-600">
+                    <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-leaf" />
+                    <a
+                      className="transition hover:text-leaf hover:underline"
+                      href={item.mapsUrl}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      {item.location}
+                    </a>
+                  </p>
                 ) : null}
               </article>
             </li>
