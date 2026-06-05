@@ -18,6 +18,24 @@ const hotelMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeUR
   hotelAddress
 )}`;
 
+const emergencyWhatsAppContacts = [
+  {
+    name: "Winnie EE",
+    phone: "+852 9659-8653",
+    href: "https://wa.me/85296598653"
+  },
+  {
+    name: "Miss Cheung",
+    phone: "+852 9668-1928",
+    href: "https://wa.me/85296681928"
+  },
+  {
+    name: "CC 姐姐",
+    phone: "+852 5228-5998",
+    href: "https://wa.me/85252285998"
+  }
+];
+
 export default function InfoPage() {
   return (
     <div className="px-4 py-6 sm:px-6 lg:px-8">
@@ -100,6 +118,34 @@ export default function InfoPage() {
                   </span>
                 </span>
               </a>
+
+              <div className="pt-2">
+                <p className="mb-2 text-xs font-black uppercase tracking-normal text-slate-500">
+                  Emergency WhatsApp
+                </p>
+                <div className="space-y-3">
+                  {emergencyWhatsAppContacts.map((contact) => (
+                    <a
+                      className="flex min-h-12 items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-black text-ink transition-colors hover:border-green-200 hover:bg-green-50 hover:text-green-600 hover:underline"
+                      href={contact.href}
+                      key={contact.href}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <MessageCircle
+                        aria-hidden="true"
+                        className="h-5 w-5 shrink-0 text-green-600"
+                      />
+                      <span>
+                        {contact.name}
+                        <span className="mt-0.5 block font-semibold text-slate-600">
+                          {contact.phone}
+                        </span>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
           </article>
 
