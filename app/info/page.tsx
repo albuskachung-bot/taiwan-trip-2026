@@ -1,5 +1,4 @@
 import {
-  AlertTriangle,
   Building2,
   FileCheck2,
   Hotel,
@@ -67,18 +66,6 @@ export default function InfoPage() {
           <h2 className="text-xl font-black text-ink">行李確認清單</h2>
         </div>
         <Checklist />
-      </section>
-
-      <section className="mt-5 rounded-lg border border-red-200 bg-red-50 p-5 text-red-900 shadow-sm">
-        <div className="flex items-start gap-3">
-          <AlertTriangle aria-hidden="true" className="mt-0.5 h-6 w-6 shrink-0 text-red-600" />
-          <div>
-            <h2 className="text-lg font-black">網卡注意</h2>
-            <p className="mt-2 text-sm font-bold leading-6">
-              ⚠️ 網卡注意：eSIM 須於購買後 30 天內完成安裝與啟用，逾期將無法使用。
-            </p>
-          </div>
-        </div>
       </section>
 
       <section className="mt-7">
