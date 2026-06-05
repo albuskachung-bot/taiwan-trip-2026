@@ -9,7 +9,6 @@ import {
   Phone,
   ReceiptText,
   ShoppingBag,
-  UserRound
 } from "lucide-react";
 import { Checklist } from "../components/Checklist";
 
@@ -18,21 +17,36 @@ const hotelMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeUR
   hotelAddress
 )}`;
 
-const emergencyWhatsAppContacts = [
+const emergencyContacts = [
+  {
+    name: "嘉聰（台灣電話）",
+    phone: "+886 983-161-419",
+    href: "tel:+886983161419",
+    type: "phone"
+  },
+  {
+    name: "嘉聰（香港 WhatsApp）",
+    phone: "+852 9022-9414",
+    href: "https://wa.me/85290229414",
+    type: "whatsapp"
+  },
   {
     name: "Winnie EE",
     phone: "+852 9659-8653",
-    href: "https://wa.me/85296598653"
+    href: "https://wa.me/85296598653",
+    type: "whatsapp"
   },
   {
     name: "Miss Cheung",
     phone: "+852 9668-1928",
-    href: "https://wa.me/85296681928"
+    href: "https://wa.me/85296681928",
+    type: "whatsapp"
   },
   {
     name: "CC 姐姐",
     phone: "+852 5228-5998",
-    href: "https://wa.me/85252285998"
+    href: "https://wa.me/85252285998",
+    type: "whatsapp"
   }
 ];
 
@@ -77,75 +91,31 @@ export default function InfoPage() {
 
         <div className="grid gap-4 md:grid-cols-2">
           <article className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-            <div className="flex items-start gap-3">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-leaf/10 text-leaf">
-                <UserRound aria-hidden="true" className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-xs font-black uppercase tracking-normal text-slate-500">
-                  Trip Contact
-                </p>
-                <h3 className="mt-1 text-xl font-black text-ink">主辦人 / 行程負責人</h3>
-                <p className="mt-1 text-sm font-bold text-slate-600">嘉聰</p>
-              </div>
-            </div>
+            <h3 className="text-xl font-black text-ink">🚨 緊急聯絡人</h3>
 
             <div className="mt-5 space-y-3">
-              <a
-                className="flex min-h-12 items-center gap-3 rounded-lg border border-slate-200 bg-mist/70 px-4 py-3 text-sm font-black text-ink transition hover:border-leaf/40 hover:text-leaf"
-                href="tel:+886983161419"
-              >
-                <Phone aria-hidden="true" className="h-5 w-5 shrink-0 text-leaf" />
-                <span>
-                  聯絡人電話（台灣）
-                  <span className="mt-0.5 block font-semibold text-slate-600">
-                    +886 983-161-419
-                  </span>
-                </span>
-              </a>
+              {emergencyContacts.map((contact) => {
+                const Icon = contact.type === "phone" ? Phone : MessageCircle;
+                const isExternal = contact.href.startsWith("https://");
 
-              <a
-                className="flex min-h-12 items-center gap-3 rounded-lg border border-slate-200 bg-mist/70 px-4 py-3 text-sm font-black text-ink transition hover:border-leaf/40 hover:text-leaf"
-                href="https://wa.me/85290229414"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <MessageCircle aria-hidden="true" className="h-5 w-5 shrink-0 text-leaf" />
-                <span>
-                  WhatsApp 聯絡（香港）
-                  <span className="mt-0.5 block font-semibold text-slate-600">
-                    +852 9022-9414
-                  </span>
-                </span>
-              </a>
-
-              <div className="pt-2">
-                <p className="mb-2 text-xs font-black uppercase tracking-normal text-slate-500">
-                  Emergency WhatsApp
-                </p>
-                <div className="space-y-3">
-                  {emergencyWhatsAppContacts.map((contact) => (
-                    <a
-                      className="flex min-h-12 items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-black text-ink transition-colors hover:border-green-200 hover:bg-green-50 hover:text-green-600 hover:underline"
-                      href={contact.href}
-                      key={contact.href}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <MessageCircle
-                        aria-hidden="true"
-                        className="h-5 w-5 shrink-0 text-green-600"
-                      />
-                      <span>
-                        {contact.name}
-                        <span className="mt-0.5 block font-semibold text-slate-600">
-                          {contact.phone}
-                        </span>
+                return (
+                  <a
+                    className="flex min-h-12 items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-black text-ink shadow-sm transition-colors hover:border-green-200 hover:bg-green-50 hover:text-green-600 hover:underline"
+                    href={contact.href}
+                    key={contact.href}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    target={isExternal ? "_blank" : undefined}
+                  >
+                    <Icon aria-hidden="true" className="h-5 w-5 shrink-0 text-green-600" />
+                    <span>
+                      {contact.name}
+                      <span className="mt-0.5 block font-semibold text-slate-600">
+                        {contact.phone}
                       </span>
-                    </a>
-                  ))}
-                </div>
-              </div>
+                    </span>
+                  </a>
+                );
+              })}
             </div>
           </article>
 
